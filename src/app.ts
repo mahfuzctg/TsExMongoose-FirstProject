@@ -1,20 +1,21 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import cors from 'cors';
-import express, { Request, Response, Application } from 'express';
+import cors from "cors";
+import express, { Application, Request, Response } from "express";
+import { StudentRoutes } from "./app/modules/student/student.route";
+
 const app: Application = express();
 
-const port = 3000;
-
-// parserJ
+//parsers
 app.use(express.json());
+app.use(cors());
 
-app.use(cors);
+// application routes
+app.use("/api/v1/students", StudentRoutes);
 
-//
-app.get('/', (req: Request, res: Response) => {
-  var a = 10;
+const getAController = (req: Request, res: Response) => {
+  const a = 10;
   res.send(a);
-});
+};
+
+app.get("/", getAController);
+
 export default app;
-// console.log(process.cwd());
